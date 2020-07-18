@@ -6,19 +6,11 @@ services:
 
 jobs:
   include:
-    - stage: build
-      script: mvn install
-    - stage: docker-build-dev
-      if: branch = dev
+    - script: mvn install
+    - if: branch = dev
       script: docker build -t lpulles/petclinic:dev . & docker push lpulles/petclinic:dev
-    - stage: docker-build-master
-      if: branch = master
+    - if: branch = master
       script: docker build -t lpulles/petclinic:master . & docker push lpulles/petclinic:master
-
-stages:
-  - build
-  - docker-build-dev
-  - docker-build-master
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
