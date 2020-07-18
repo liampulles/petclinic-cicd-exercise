@@ -4,6 +4,14 @@ jdk: oraclejdk8
 services:
   - docker
 
+stages:
+  - name: build
+  - name: docker-build
+    # require the branch name to be master (note for PRs this is the base branch name)
+    if: branch IN (dev, master)
+  - name: docker-push
+    if: branch IN (dev, master)
+
 jobs:
   include:
     - stage: build
@@ -18,6 +26,7 @@ jobs:
       script: docker push lpulles/petclinic:dev
     - if: branch = master
       script: docker push lpulles/petclinic:master
+
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
