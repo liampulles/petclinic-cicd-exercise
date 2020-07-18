@@ -29,6 +29,8 @@ jobs:
       if: branch = master
       script: docker push lpulles/petclinic:master
 
+script: echo "Running Build!"
+
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
