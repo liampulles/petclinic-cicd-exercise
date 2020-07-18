@@ -13,10 +13,10 @@ stages:
 jobs:
   include:
     - stage: build
-      script: mvn install
+      script: mvn test
     - stage: docker-build-push
       if: branch = dev
-      script: mvn install -DskipTests & docker build -t lpulles/petclinic:dev . & docker push lpulles/petclinic:dev
+      script: docker build -t lpulles/petclinic:dev .; docker push lpulles/petclinic:dev;
 
 script: echo "Running Build!"
 
