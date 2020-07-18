@@ -7,27 +7,16 @@ services:
 
 stages:
   - name: build
-  - name: docker-build
-    if: branch IN (dev, master)
-  - name: docker-push
+  - name: docker-build-push
     if: branch IN (dev, master)
 
 jobs:
   include:
     - stage: build
       script: mvn install
-    - stage: docker-build
+    - stage: docker-build-push
       if: branch = dev
-      script: docker build -t lpulles/petclinic:dev .
-    - stage: docker-build
-      if: branch = master
-      script: docker build -t lpulles/petclinic:master .
-    - stage: docker-push
-      if: branch = dev
-      script: docker push lpulles/petclinic:dev
-    - stage: docker-push
-      if: branch = master
-      script: docker push lpulles/petclinic:master
+      script: mvn install -DskipTests & docker build -t lpulles/petclinic:dev . & docker push lpulles/petclinic:dev
 
 script: echo "Running Build!"
 
