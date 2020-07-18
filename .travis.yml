@@ -17,6 +17,9 @@ jobs:
     - stage: docker-build-push
       if: branch = dev
       script: docker build -t lpulles/petclinic:dev .; docker push lpulles/petclinic:dev;
+    - stage: docker-build-push
+      if: branch = master
+      script: docker build -t lpulles/petclinic:master .; docker push lpulles/petclinic:master;
 
 script: echo "Running Build!"
 
