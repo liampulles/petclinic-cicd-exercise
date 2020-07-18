@@ -2,7 +2,6 @@ version: 0.2
 
 env:
   variables:
-    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
     AWS_DEFAULT_REGION: "us-east-2"
     AWS_ACCOUNT_ID: "382128067627"
     IMAGE_REPO_NAME: "petclinic"
@@ -25,7 +24,7 @@ phases:
   build:
     commands:
       - echo Entered the build phase...
-      - echo Build started on `date`
+      - echo Build started on `date` 
       - echo Building JAR...
       - mvn install
       - echo Building the Docker image...          
