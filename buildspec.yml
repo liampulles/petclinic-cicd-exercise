@@ -3,10 +3,10 @@ version: 0.2
 env:
   variables:
     JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
-		AWS_DEFAULT_REGION: "us-east-2"
-		AWS_ACCOUNT_ID: "382128067627"
-		IMAGE_REPO_NAME: "petclinic"
-		IMAGE_TAG: "latest"
+    AWS_DEFAULT_REGION: "us-east-2"
+    AWS_ACCOUNT_ID: "382128067627"
+    IMAGE_REPO_NAME: "petclinic"
+    IMAGE_TAG: "latest"
   #parameter-store:
   #  LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
 serviceRole: "arn:aws:iam::382128067627:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
@@ -18,7 +18,7 @@ phases:
       - echo Entered the install phase...
       - apt-get update -y
       - apt-get install -y maven
-	pre_build:
+  pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
@@ -26,7 +26,7 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-			- echo Building JAR...
+      - echo Building JAR...
       - mvn install
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
@@ -35,7 +35,7 @@ phases:
     commands:
       - echo Entered the post_build phase...
       - echo Build completed on `date`
-		  - echo Pushing the Docker image...
+      - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 
 #reports:
