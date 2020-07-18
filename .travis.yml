@@ -7,7 +7,6 @@ services:
 stages:
   - name: build
   - name: docker-build
-    # require the branch name to be master (note for PRs this is the base branch name)
     if: branch IN (dev, master)
   - name: docker-push
     if: branch IN (dev, master)
