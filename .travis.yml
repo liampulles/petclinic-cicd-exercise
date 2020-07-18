@@ -18,12 +18,14 @@ jobs:
     - stage: docker-build
       if: branch = dev
       script: docker build -t lpulles/petclinic:dev .
-    - if: branch = master
+    - stage: docker-build
+      if: branch = master
       script: docker build -t lpulles/petclinic:master .
     - stage: docker-push
       if: branch = dev
       script: docker push lpulles/petclinic:dev
-    - if: branch = master
+    - stage: docker-push
+      if: branch = master
       script: docker push lpulles/petclinic:master
 
 before_install:
